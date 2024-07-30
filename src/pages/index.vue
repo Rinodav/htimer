@@ -7,7 +7,7 @@
         <img src="@/assets/images/introLine.svg" alt="" />
         <div class="login-buttons">
           <HButton outline>Войти</HButton>
-          <HButton>Зарегистрироваться</HButton>
+          <HButton @click="openRegistrationModal">Зарегистрироваться</HButton>
         </div>
       </div>
     </div>
@@ -25,12 +25,23 @@
       </div>
     </div>
   </section>
+  <LoginModal v-model:open="showRegistrationModal" />
 </template>
 
 <script setup>
+import { ref } from "vue";
+
 import Header from "@/components/app/header.vue";
 import HButton from "@/components/ui/HButton.vue";
 import Advantage from "@/components/base/Advantage.vue";
+import LoginModal from "@/components/base/modals/LoginModal.vue";
+
+const showRegistrationModal = ref(false);
+
+const openRegistrationModal = () => {
+  showRegistrationModal.value = true;
+  document.body.style.overflow = "hidden";
+};
 </script>
 
 <style lang="scss" scoped>
@@ -50,6 +61,7 @@ import Advantage from "@/components/base/Advantage.vue";
     position: absolute;
     top: 0;
     right: -9%;
+    width: 60%;
   }
 
   .intro-block {
