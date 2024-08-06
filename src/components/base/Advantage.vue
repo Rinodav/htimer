@@ -1,19 +1,31 @@
 <template>
   <div class="advantage">
     <div class="icon">
-      <img src="@/assets/icons/descriptionIcon1.png" alt="" />
+      <img :src="icon" alt="advantage" />
     </div>
     <div class="description">
-      <div class="title">Интуитивное управление</div>
-      <div class="subtitle">
-        С легкостью добавляйте, отслеживайте и завершайте задачи благодаря
-        простому и понятному интерфейсу.
-      </div>
+      <div class="title">{{ title }}</div>
+      <div class="subtitle">{{ subtitle }}</div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup>
+const props = defineProps({
+  icon: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  subtitle: {
+    type: String,
+    required: true,
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/variables.scss";

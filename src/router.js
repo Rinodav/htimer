@@ -1,11 +1,11 @@
 import { createWebHistory, createRouter } from "vue-router";
 
 import Home from "./pages/index.vue";
-import Baz from "./pages/baz.vue";
+import Htimer from "./pages/htimer.vue";
 
 const routes = [
   { path: "/", component: Home, name: "home" },
-  { path: "/baz", component: Baz, name: "baz" },
+  { path: "/htimer", component: Htimer, name: "htimer" },
 ];
 
 const router = createRouter({

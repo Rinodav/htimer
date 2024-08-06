@@ -2,14 +2,20 @@
   <div class="h-input">
     <label>
       {{ label }}
-      <input :type :placeholder />
+      <Field :type :placeholder :name="name" />
     </label>
-    <span v-if="error" class="error">{{ error }}</span>
+    <ErrorMessage class="error-message" :name="name" />
+    <!-- <span v-if="error" class="error">{{ error }}</span> -->
   </div>
 </template>
 
 <script setup>
+import { Field, ErrorMessage } from "vee-validate";
+
 defineProps({
+  name: {
+    type: String,
+  },
   placeholder: {
     type: String,
   },
@@ -18,9 +24,6 @@ defineProps({
     default: "text",
   },
   label: {
-    type: String,
-  },
-  error: {
     type: String,
   },
 });
@@ -47,12 +50,20 @@ defineProps({
         outline: none;
       }
     }
+    .ErrorMessage {
+      color: #ff3a00;
+      font-family: "Source Sans Pro";
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 125%; /* 17.5px */
+    }
   }
-  .error {
+  .error-message {
+    display: inline-block;
     margin-top: 4px;
     color: #ff3a00;
     font-size: 14px;
-    font-weight: 400;
   }
 }
 </style>
