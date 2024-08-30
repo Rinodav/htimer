@@ -1,45 +1,81 @@
 <template>
   <div class="card flex justify-center">
+    <div>
+      <Button label="Submit" @click="foo" />
+    </div>
     <Tree :value="nodes" class="w-full md:w-[30rem]"></Tree>
   </div>
 </template>
 
 <script setup>
 import Tree from "primevue/tree";
-import { ref, onMounted } from "vue";
-import { NodeService } from "@/service/NodeService";
+import Button from "primevue/button";
 
-const nodes = ref(null);
+import { ref } from "vue";
+// import { NodeService } from "@/service/NodeService";
 
-onMounted(() => {
-  nodes.value = NodeService.getTreeNodes();
-});
+const nodes = ref([
+  {
+    key: "0",
+    label: "Этапы",
+    data: "Documents Folder",
+    icon: "pi pi-fw pi-inbox",
+    // expandedIcon: "pi pi-fw pi-inbox",
+    children: [
+      {
+        key: "0-0",
+        label: "Work",
+        data: "Work Folder",
+        icon: "pi pi-fw pi-cog",
+        children: [
+          {
+            key: "0-0-0",
+            label: "Expenses.doc",
+            icon: "pi pi-fw pi-file",
+            data: "Expenses Document",
+          },
+          {
+            key: "0-0-1",
+            label: "Resume.doc",
+            icon: "pi pi-fw pi-file",
+            data: "Resume Document",
+          },
+        ],
+      },
+      {
+        key: "0-1",
+        label: "Home",
+        data: "Home Folder",
+        icon: "pi pi-fw pi-home",
+        children: [
+          {
+            key: "0-1-0",
+            label: "Invoices.txt",
+            icon: "pi pi-fw pi-file",
+            data: "Invoices for this month",
+          },
+        ],
+      },
+    ],
+  },
+]);
+
+const foo = () => {
+  nodes.value[0].children.push({
+    key: "0-0-0",
+    label: "Expenses.doc",
+    icon: "pi pi-fw pi-file",
+    data: "Expenses Document",
+    children: [
+      {
+        key: "0-0-0",
+        label: "Expenses.doc",
+        icon: "pi pi-fw pi-file",
+        data: "Expenses Document",
+      },
+    ],
+  });
+};
 </script>
 
-<style lang="scss" scoped>
-@import "@/assets/styles/variables.scss";
-:deep(.p-tree-node-content) {
-  display: flex;
-  align-items: center;
-}
-
-:deep(.p-tree-node-label) {
-  color: #84b4fc;
-  font-size: 22px;
-  font-weight: 600;
-  padding: 0 0 0 15px;
-}
-
-:deep(.p-tree-node-icon.pi.pi-fw.pi-inbox) {
-  max-width: 24px;
-  max-height: 22px;
-  content: url("@/assets/icons/sidebar/stages.svg");
-}
-
-:deep(.p-tree-node-toggle-button) {
-  order: 1;
-  margin-left: auto;
-  content: none;
-  content: url(@/assets/icons/sidebar/closeStep.svg);
-}
-</style>
+<style lang="scss" scoped></style>
