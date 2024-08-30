@@ -30,7 +30,9 @@
           />
         </Form>
         <div class="registration-btn">
-          <HButton @click="$emit('open-confirm-email-modal', 'confirm-email')"
+          <HButton
+            class="variant-filled"
+            @click="$emit('open-confirm-email-modal', 'confirm-email')"
             >Зарегистрироваться</HButton
           >
         </div>

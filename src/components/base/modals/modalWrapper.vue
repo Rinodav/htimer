@@ -1,28 +1,18 @@
 <template>
-  <div v-if="isOpen" class="wrapper" @click="closeLoginModal">
+  <div class="wrapper">
     <div class="modal" @click.stop>
       <div class="header">
         <img @click="closeLoginModal" src="@/assets/icons/modalCloseBtn.svg" />
       </div>
       <div class="body">
-        <div class="title">Авторизация</div>
-        <Form class="inputs" :validation-schema="schema">
-          <HInput name="login" placeholder="Введите login" label="Login" />
-          <HInput name="password" label="Пароль" type="password" />
-        </Form>
-        <div class="forgot-password">
-          <span>Забыли пароль?</span>
+        <div class="title">
+          {{ title }}
         </div>
-        <div class="registration-btn">
-          <HButton class="variant-filled">Ввойти</HButton>
+        <div class="content">
+          <slot></slot>
         </div>
-        <div class="account-exist">
-          У вас нет аккаунта?
-          <span
-            @click="$emit('open-registration-modal', 'registration')"
-            class="registration"
-            >Зарегистрироваться</span
-          >
+        <div class="buttons">
+          <slot name="buttons" />
         </div>
       </div>
     </div>
@@ -30,23 +20,35 @@
 </template>
 
 <script setup>
-import HInput from "@/components/ui/HInput.vue";
 import HButton from "@/components/ui/HButton.vue";
-import { Form } from "vee-validate";
-import * as yup from "yup";
-
-const isOpen = defineModel("open", { default: false });
-
-const emit = defineEmits(["open-registration-modal"]);
-
 const closeLoginModal = () => {
   isOpen.value = false;
   document.body.style.overflow = "auto";
 };
 
-const schema = yup.object({
-  login: yup.string().required("Поле обязательно для заполнения"),
-  password: yup.string().required("Поле обязательно для заполнения"),
+const buttonStyles = ["variant-add", "variant-delete", "variant-cancel"];
+
+const props = defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
+  firstButtonStyle: {
+    type: Number,
+    default: 0,
+  },
+  secondButtonStyle: {
+    type: Number,
+    default: 0,
+  },
+  firstButtonName: {
+    type: String,
+    required: true,
+  },
+  secondButtonName: {
+    type: String,
+    required: true,
+  },
 });
 </script>
 
@@ -68,24 +70,35 @@ const schema = yup.object({
   .modal {
     background-color: white;
     border-radius: 28px;
-
+    max-width: 447px;
+    width: 100%;
+    max-height: 602px;
+    height: 100%;
     .header {
       display: flex;
       justify-content: flex-end;
-      padding: 34px 34px 8px 0;
+      padding: 34px 34px 6px 0;
       img {
         cursor: pointer;
       }
     }
 
     .body {
-      padding: 0 93px 80px 70px;
-
+      padding: 0 20px 32px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      max-height: 530px;
       .title {
-        color: $base-color;
+        color: $base-black;
+        font-size: 23px;
         font-weight: 600;
-        font-size: 35px;
-        margin-bottom: 40px;
+        align-self: center;
+      }
+
+      .content {
+        align-self: center;
       }
 
       .inputs {
@@ -130,5 +143,11 @@ const schema = yup.object({
       }
     }
   }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
 }
 </style>

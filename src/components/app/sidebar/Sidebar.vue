@@ -11,36 +11,14 @@
       <div class="logo">
         <Header logoType="logoMainWhite" />
       </div>
-      <SidebarStep
-        v-for="step in steps"
-        :key="step.id"
-        :step="step"
-        :active="currentStep === step.id"
-        @click="currentStep = step.id"
-      />
-      <SidebarItem
-        v-if="currentStep"
-        :step="steps.find((s) => s.id === currentStep)"
-      />
+      <SidebarTree />
     </div>
   </div>
 </template>
 
 <script setup>
 import Header from "@/components/app/header.vue";
-import HideSidebar from "@/assets/icons/sidebar/hideSidebar.svg";
-import { ref } from "vue";
-import SidebarStep from "@/components/ui/SidebarStep.vue";
-import SidebarItem from "@/components/ui/SidebarItem.vue";
-
-const steps = ref([
-  { id: 1, name: "Этапы", items: ["Item 1.1", "Item 1.2"] },
-  { id: 2, name: "Рейтинг", items: ["Item 2.1", "Item 2.2"] },
-  { id: 3, name: "Задачи", items: ["Item 3.1", "Item 3.2"] },
-  { id: 4, name: "Выгрузка", items: ["Item 4.1", "Item 4.2"] },
-]);
-
-const currentStep = ref(1);
+import SidebarTree from "./SidebarTree.vue";
 </script>
 
 <style lang="scss" scoped>

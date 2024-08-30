@@ -7,8 +7,12 @@
           <h1>Мы здесь, чтобы повысить вашу продуктивность</h1>
           <img src="@/assets/images/introLine.svg" alt="" />
           <div class="login-buttons">
-            <HButton @click="openLoginModal" outline>Войти</HButton>
-            <HButton @click="openRegistrationModal">Зарегистрироваться</HButton>
+            <HButton @click="openLoginModal" class="variant-outline"
+              >Войти</HButton
+            >
+            <HButton @click="openRegistrationModal" class="variant-filled"
+              >Зарегистрироваться</HButton
+            >
           </div>
         </div>
       </div>
@@ -31,7 +35,7 @@
       </div>
     </section>
   </div>
-  <Footer />
+  <Footer @scroll-to-top="scrollToTop" />
   <RegistrationModal
     v-model:open="showRegistrationModal"
     @open-login-modal="switchModals"
@@ -58,6 +62,13 @@ import RegistrationModal from "@/components/base/modals/RegistrationModal.vue";
 import LoginModal from "@/components/base/modals/LoginModal.vue";
 import Footer from "@/components/app/footer.vue";
 import ConfirmEmailModal from "../components/base/modals/ConfirmEmailModal.vue";
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
 
 const showRegistrationModal = ref(false);
 const showLoginModal = ref(false);

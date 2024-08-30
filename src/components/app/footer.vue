@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="container">
       <div class="decorative-line"></div>
-      <div class="to-home">На главную</div>
+      <div class="to-home" @click="$emit('scroll-to-top')">На главную</div>
       <div class="social-media">
         <img src="@/assets/icons/facebook.png" alt="icon" />
         <img src="@/assets/icons/instagram.png" alt="icon" />
@@ -42,6 +42,7 @@
       margin-bottom: 20px;
       color: #fff;
       cursor: pointer;
+      user-select: none;
     }
 
     .social-media {

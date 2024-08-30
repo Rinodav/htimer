@@ -1,12 +1,12 @@
 <template>
-  <button :class="['h-button', outline ? 'outline' : 'filled']">
+  <button :class="['h-button', `variant-${variant}`]">
     <slot></slot>
   </button>
 </template>
 
 <script setup>
 defineProps({
-  outline: Boolean,
+  variant: String,
 });
 </script>
 
@@ -29,13 +29,37 @@ button {
   }
 }
 
-.filled {
+.variant-filled {
+  font-size: 23px;
   color: white;
   background-color: $base-color;
 }
 
-.outline {
+.variant-outline {
+  font-size: 23px;
   color: $base-color;
   background-color: transparent;
+}
+
+.variant-add {
+  font-size: 23px;
+  color: white;
+  background-color: $base-color;
+  border-radius: 3px;
+}
+
+.variant-cancel {
+  font-size: 23px;
+  color: $base-color;
+  background-color: transparent;
+  border: 3px solid $base-color;
+  border-radius: 3px;
+}
+
+.variant-delete {
+  font-size: 23px;
+  color: white;
+  background-color: $base-red;
+  border-radius: 3px;
 }
 </style>
