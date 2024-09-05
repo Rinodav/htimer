@@ -1,5 +1,9 @@
 <template>
   <div class="card flex justify-center flex-col">
+    <div>
+      <Button label="Add Stage" @click="addStage" />
+      <Button label="Add Document" @click="addDocument" />
+    </div>
     <Tree :value="nodes" class="w-full md:w-[30rem]">
       <template #nodeicon="{ node }">
         <img v-if="node.icon" :src="node.icon" class="custom-icons" />
@@ -10,6 +14,7 @@
 
 <script setup>
 import Tree from "primevue/tree";
+import Button from "primevue/button";
 import { ref } from "vue";
 
 const nodes = ref([

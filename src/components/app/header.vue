@@ -27,6 +27,9 @@ const logoSrc = computed(() => {
     ? "/logoMainWhite.svg"
     : "/logoMain.svg";
 });
+
+console.log("props.logoType:", props.logoType);
+console.log("logoSrc:", logoSrc.value);
 </script>
 
 <style lang="scss" scoped>

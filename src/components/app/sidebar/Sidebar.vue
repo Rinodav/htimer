@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="sidebar">
-      <div class="hide-sidebar-btn" @click="toggleSidebar">
+      <div class="hide-sidebar-btn">
         <img
           class="hide-sidebar"
           src="@/assets/icons/sidebar/hideSidebar.svg"
