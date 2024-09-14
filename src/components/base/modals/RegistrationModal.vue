@@ -9,30 +9,48 @@
       </div>
       <div class="body">
         <div class="title">Регистрация</div>
-        <Form class="inputs" :validation-schema="schema">
-          <HInput
-            name="fullName"
-            placeholder="Введите имя и фамилия"
-            label="Имя и Фамилия"
-          />
-          <HInput name="login" placeholder="Введите login" label="Login" />
-          <HInput
-            name="email"
-            placeholder="Введите email"
-            label="Email"
-            type="email"
-          />
-          <HInput name="password" label="Пароль" type="password" />
-          <HInput
-            name="repassword"
-            label="Подтверждение пароля"
-            type="password"
-          />
+        <Form class="inputs" @submit="signUp" :validation-schema="schema">
+          <HInput name="fullName" label="Имя и Фамилия"
+            ><Field
+              name="fullName"
+              v-model="formData.fullName"
+              placeholder="Введите имя и фамилия"
+            />
+          </HInput>
+          <HInput name="login" label="Login" />
+          <HInput>
+            <Field
+              name="login"
+              v-model="formData.login"
+              placeholder="Введите login"
+            />
+          </HInput>
+
+          <HInput name="email" label="Email">
+            <Field
+              name="email"
+              v-model="formData.email"
+              placeholder="Введите email"
+              type="email"
+            />
+          </HInput>
+          <HInput name="password" label="Пароль">
+            <Field
+              name="password"
+              v-model="formData.password"
+              type="password"
+            />
+          </HInput>
+          <HInput name="repassword" label="Подтверждение пароля">
+            <Field
+              name="repassword"
+              v-model="formData.repassword"
+              type="password"
+            />
+          </HInput>
         </Form>
         <div class="registration-btn">
-          <HButton
-            class="variant-filled"
-            @click="$emit('open-confirm-email-modal', 'confirm-email')"
+          <HButton class="variant-filled" @click="signUp"
             >Зарегистрироваться</HButton
           >
         </div>
@@ -48,9 +66,12 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
+import { useDataStore } from "/stores/dataStore";
+const store = useDataStore();
 import HInput from "@/components/ui/HInput.vue";
 import HButton from "@/components/ui/HButton.vue";
-import { Form } from "vee-validate";
+import { Form, ErrorMessage, Field } from "vee-validate";
 import * as yup from "yup";
 
 const isOpen = defineModel("open", { default: false });
@@ -95,6 +116,18 @@ const schema = yup.object({
     .required("Поле обязательно для заполнения")
     .oneOf([yup.ref("password")], "Пароли должны совпадать"),
 });
+const formData = ref({
+  fullName: "",
+  login: "",
+  email: "",
+  password: "",
+  repassword: "",
+});
+const signUp = async (values, actions) => {
+  console.log(formData.value);
+
+  await store.signUp(formData.value);
+};
 </script>
 
 <style lang="scss" scoped>

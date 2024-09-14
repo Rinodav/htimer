@@ -2,10 +2,9 @@
   <div class="h-input">
     <label>
       {{ label }}
-      <Field :type :placeholder :name="name" />
+      <slot />
     </label>
     <ErrorMessage class="error-message" :name="name" />
-    <!-- <span v-if="error" class="error">{{ error }}</span> -->
   </div>
 </template>
 
@@ -14,9 +13,6 @@ import { Field, ErrorMessage } from "vee-validate";
 
 defineProps({
   name: {
-    type: String,
-  },
-  placeholder: {
     type: String,
   },
   type: {
